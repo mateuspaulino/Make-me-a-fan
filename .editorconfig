@@ -1,0 +1,19 @@
+# Documentação: http://editorconfig.org
+# Para o VS Code, baixar a extensão do EditorConfig: https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
+
+# Top-most EditorConfig file
+root = true
+
+# Default configs
+[*]
+charset = utf-8
+indent_style = space
+insert_final_newline = true
+
+# PUG and SCSS
+[*.{pug, scss}]
+indent_size = 2
+
+# JS
+[*.js]
+indent_size = 4

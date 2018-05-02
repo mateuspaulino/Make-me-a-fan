@@ -1,0 +1,217 @@
+/*
++---------------------------------+
+ $s3URL É uma variável dinamica,
+ que guarda a URL de ambiente
++---------------------------------+
+*/
+
+$s3URL: '' !default;
+
+
+/*
++---------------------------------+
+ Variáveis 
++---------------------------------+
+*/
+
+$widthContainer: 1280px;
+$tabWidth: 768px;
+$mobiWidth: 640px;
+
+$marginTopElemento: 40px;
+$marginBottomElemento: 40px;
+
+$mainContainerOuterMaxWidth: 1050px;
+$mainContainerInnerMaxWidth: 765px;
+
+/*
++---------------------------------+
+ Fontes 
++---------------------------------+
+*/
+
+$fc: 'Times New Roman', serif;
+$fa: Arial, $fc;
+$fl: OgloboCondensedLight, $fc;
+$fr: OgloboCondensedRegular, $fc;
+$fsb: OgloboCondensedSemibold, $fc;
+$fm: OgloboCondensedMedium, $fc;
+$fb: OgloboCondensedBold, $fc;
+$fg: Georgia, $fc;
+
+
+body {
+  // overflow-y: hidden;
+
+  // Fix para nao aparecer o button de scroll to top
+  footer {
+    background-color: #fff !important;
+    z-index: 2 !important;
+  }
+
+  &.g-allow-overflow {
+    overflow-y: auto !important;
+  }
+
+  &.g-block-overflow {
+    overflow-y: hidden !important;
+  }
+
+  #sticker {
+    z-index: 100000000000000000000000000000;
+    position: relative !important;
+  }
+
+  #menu-editoria {
+    z-index: 100000000000000000000000000000;
+  }
+
+  .head-materia {
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  #all_banner {
+    height: 0 !important;
+    overflow: hidden  !important;
+    padding: 0  !important;
+    border: none  !important;
+    background: none  !important;
+    margin: 0  !important;
+  }
+
+  article {
+    max-width: 100% !important;
+  }
+}
+
+
+.full-screen {
+  video {
+    // position: fixed;
+    // top: 50%;
+    // left: 50%;
+    // min-width: 100%;
+    // min-height: 100%;
+    // width: auto;
+    // height: auto;
+    // z-index: -100;
+    // transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+    height: 100%;
+    //position:absolute;
+    object-fit: cover;
+  }
+}
+
+.g-container {
+  // max-width: $widthContainer;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  // position: relative;
+}
+
+.g-full-width {
+  margin-right: -10px;
+  margin-left: -10px;
+  border: 1px solid transparent;
+  @media(min-width: 1200px){
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+}
+
+.g-xs-hidden {
+  display: block;
+  @media(max-width: 767px) {
+    display: none;
+  }
+}
+
+.g-md-hidden {
+  display: none;
+  @media(max-width: 767px) {
+    display: block;
+  }
+}
+
+.g-section-controller {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  min-height: 20px;
+  position: relative;
+
+  &:before {
+    content: '';
+    width: 1px;
+    height: 10px;
+    display: inline-block;
+    background: #666666;
+    position: absolute;
+    right: 71px;
+    top: 7px;
+  }
+  @media screen and (max-width: 640px){
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    &:before {
+      top: 18px;
+      right: 69px;
+    }
+  }
+
+  button {
+    @include set-font(14px, $fr, #666666);
+    
+    text-transform: uppercase;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    min-width: 60px;
+    @media screen and (max-width: 640px) {
+      @include set-font(18px, $fr, #666666);
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: 0;
+      color: #666666;
+      background: transparent;
+    }
+
+    &:disabled {
+      opacity: .5;
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+  @media(min-width: 992px) {
+    max-width: 200px;
+    position: absolute;
+    bottom: 0;
+    z-index: 8000;
+    display: block;
+    padding-bottom: 10px;
+  }
+  @media(max-width: 991px) {
+    // transform: translateY(130px);
+    background: #fff;
+    margin-right: -10px;
+    margin-left: -10px;
+  }
+  @media(min-width: 768px) and (max-width: 991px) {
+    display: none;
+  }
+}

@@ -1,0 +1,181 @@
+//- //- BEGIN - Funcoes PUG
+//- -function quebraLinha(content){while(content.indexOf('\r\n\r\n\r\n')!=-1){content = content.replace("\r\n\r\n\r\n", '<br /><br />' );}return content;};
+//- -function antesQuebraLinha(str){return /.+?(?=<br>)/.exec(str)}
+//- -function depoisQuebraLinha(str){return /[^<br>]*$/.exec(str)}
+//- //- END - Funcoes PUG
+
+
+//- //- BEGIN - Mixins das paginas
+//- include ../pages/home.pug
+//- include ../pages/materia.pug
+//- include ../pages/artigo.pug
+//- include ../pages/materia-grafico.pug
+//- include ../pages/materia-video.pug
+//- //- END - Mixins das paginas
+
+
+//- //- BEGIN - Mixins de elementos
+//- mixin header-titulo-subtitulo(titulo, subtituloLinha)
+//-     .header-titulo-subtitulo
+//-         .header-titulo
+//-             div= titulo
+//-         .header-subtitulo
+//-             div
+//-                 div !{subtituloLinha}
+//-             //- div
+//-             //-     div= subtituloLinha1
+//-             //- div
+//-             //-     div= subtituloLinha2
+
+
+//- mixin texto-padrao(texto)
+//-     p.texto-padrao--container !{texto}
+
+
+//- mixin titulo-materia(titulo)
+//-     h2.titulo-materia !{titulo}
+
+
+//- mixin imagem-materia(imgPath, legenda)
+//-     .main-container__img-materia
+//-         img(src=url+"img/"+imgPath)
+//-         .main-container__img-materia__legenda !{legenda}
+
+
+//- mixin grafico(pathImgDesk, pathImgMobi)
+//-     .grafico--container
+//-         //- h3.grafico__titulo= titulo
+//-         //- h4.grafico__subtitulo= subtitulo
+//-         img.img--desk(src= pathImgDesk)
+//-         img.img--mobi(src= pathImgMobi)
+//-         //- .grafico__fonte
+//-             span.grafico__fonte--bold
+//-                 | Fonte: 
+//-             span= fonte
+
+
+//- mixin texto-citacao-aspas(texto, autor, cargo)
+//-     .texto-citacao-aspas--container
+//-         blockquote.texto-citacao-aspas__texto !{texto}
+//-         .texto-citacao-aspas__autor= autor
+//-         .texto-citacao-aspas__cargo= cargo
+
+
+//- mixin galeria-slick(titulo, fotos, id)
+//-     .galeria-slick
+//-         strong Galeria
+//-         .galeria-slick-header
+//-             h2.galeria-slick-titulo !{titulo}
+//-             .galeria-slick-controler
+//-                 .galeria-slick-contador.galeria-slick-contador--mobile
+//-                     small #[span.galeria-slick-contador__indice 1] DE #[span.galeria-slick-contador__total 1] 
+//-                 button.galeria-slick__button.galeria-slick__button-prev Prev
+//-                 button.galeria-slick__button.galeria-slick__button-next Next
+//-         .galeria-slick-body
+//-             each item in fotos
+//-                 .galeria-slick__item
+//-                     figure
+//-                         img(src=url+'img/'+item.foto)
+//-                         div.figcaption 
+//-                             .galeria-slick-contador
+//-                                 small #[span.galeria-slick-contador__indice 1] DE #[span.galeria-slick-contador__total 1] 
+//-                             p !{item.legenda}
+
+//-         //-.galeria-slick-contador
+//-             small #[span.galeria-slick-contador__indice 1] DE #[span.galeria-slick-contador__total 1] 
+
+
+//- mixin texto-pergunta(textoPergunta)
+//-     .texto-pergunta !{textoPergunta}
+    
+//- mixin embed-video(id, titulo, subtitulo)
+//-     .g-video
+//-         unless !titulo
+//-             h2.g-video-titulo !{titulo}
+//-             p.g-video-subtitulo !{subtitulo}
+//-         //-.g-embed.g-icon-player.g-overlay    
+//-         .g-embed.g-icon-player.g-overlay    
+//-             .g-video-container(idVideo=id)
+
+
+//- mixin bloco-materia(id, slug, imgPath, titulo, subtitulo)
+//-     .bloco-materia(data-id= id, data-slug= slug)
+//-         .img-filtrada--container(style='background-image: url("' + imgPath + '")')
+//-         .bloco-materia__textos
+//-             h3.bloco-materia__textos--titulo !{titulo}
+//-             h4.bloco-materia__textos--subtitulo !{subtitulo}
+
+
+//- //- mixin bloco-materia--mobi(id, imgPath, titulo, subtitulo)
+//- //-     .bloco-materia--mobi(data-id= id)
+//- //-         .img-filtrada--container(style='background-image: url("' + imgPath + '")')
+//- //-         .bloco-materia--mobi__textos
+//- //-             .bloco-materia--mobi__textos--titulo= titulo
+//- //-             .bloco-materia--mobi__textos--subtitulo= subtitulo
+
+
+//- mixin side-bloco-materia(id, slug, imgPath, titulo, subtitulo, urlDestino)
+//-     .side-bloco-materia--div(data-id= id, data-slug= slug)
+//-         .side-bloco-materia__textos
+//-             h3.side-bloco-materia__textos--titulo !{titulo}
+//-             h4.side-bloco-materia__textos--subtitulo !{subtitulo}
+
+//- mixin lista-pergunta(titulo, status)
+//-     h3.lista-pergunta-titulo !{titulo}
+//-     h4.lista-pergunta-status !{status}
+
+//- mixin busca-dados()
+//-     .busca-dados
+//-         .box-select.b-estado
+//-             .case-select
+//-                 label(for="estado") Escolha um estado
+//-                 .select-personalizado
+//-                     select#estado
+//-                         option(value="nulo")|---
+//-                         option(value="AC")|Acre
+//-                         option(value="AL")|Alagoas
+//-                         option(value="AP")|Amapá
+//-                         option(value="AM")|Amazonas
+//-                         option(value="BA")|Bahia
+//-                         option(value="CE")|Ceará
+//-                         option(value="DF")|Distrito Federal
+//-                         option(value="ES")|Espírito Santo
+//-                         option(value="GO")|Goiás
+//-                         option(value="MA")|Maranhão
+//-                         option(value="MT")|Mato Grosso
+//-                         option(value="MS")|Mato Grosso do Sul
+//-                         option(value="MG")|Minas Gerais
+//-                         option(value="PA")|Pará
+//-                         option(value="PB")|Paraíba
+//-                         option(value="PR")|Paraná
+//-                         option(value="PE")|Pernambuco
+//-                         option(value="PI")|Piauí
+//-                         option(value="RJ")|Rio de Janeiro
+//-                         option(value="RN")|Rio Grande do Norte
+//-                         option(value="RS")|Rio Grande do Sul
+//-                         option(value="RO")|Rondônia
+//-                         option(value="RR")|Roraima
+//-                         option(value="SC")|Santa Catarina
+//-                         option(value="SP")|São Paulo
+//-                         option(value="SE")|Sergipe
+//-                         option(value="TO")|Tocantins
+//-         .box-select.b-municipio.notactive
+//-             .case-select
+//-                 label(for="municipio") Escolha um município
+//-                 .select-personalizado
+//-                     select()#municipio
+//-                         option(value="nulo")|---
+//-                         option(value="a")|---2
+//-                         option(value="s")|---2
+//-         .box-resultado
+//-             .resultado
+//-                 p Mortes violentas:
+//-                 ul.parte_1
+//-                     //- -for(var x=0;x<5;x++)
+//-                         li #[span.ano 200#{x+1}:] #[span.indice #{(x+1)*x+15*1000}%]
+//-                 p Taxa de mortes violentas a cada 100 mil habitantes:
+//-                 ul.parte_2
+//-                     //- -for(var x=0;x<5;x++)
+//-                         li #[span.ano 200#{x+1}:] #[span.indice #{(x+1)*x+15*1000}%]
+//-         .pre-loader-resultado
+//- //- END - Mixins de elementos
