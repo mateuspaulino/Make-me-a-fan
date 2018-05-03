@@ -1,8 +1,8 @@
 ## Ao criar um novo projeto:
 - Baixar as depenências: 
-    ```bash
-    npm i
-    ```
+```console
+$ npm i
+```
 
 - Path do PUG principal: "app/views/componentes/main.pug".
 
@@ -19,12 +19,12 @@
 
 ## Uso:
 - Para rodar o projeto:
-    ```bash
-    npm start
-    ```
+```console
+$ npm start
+```
 
 - Para fazer o build projeto:
-    ```bash
-    npm run build
-    ```
-    O resultado do build estará em "public/build".
+```console
+$ npm run build
+```
+O resultado do build estará em "public/build".
