@@ -1,3 +1,25 @@
 {
-    "disallowDuplicateAttributes": true
+    "disallowClassAttributeWithStaticValue": true,
+    "disallowClassLiteralsBeforeIdLiterals": true,
+    "disallowDuplicateAttributes": true,
+    "disallowIdAttributeWithStaticValue": true,
+    "disallowLegacyMixinCall": true,
+    "disallowSpacesInsideAttributeBrackets": true,
+    "requireClassLiteralsBeforeAttributes": true,
+    "requireIdLiteralsBeforeAttributes": true,
+    "requireLineFeedAtFileEnd": true,
+    "requireLowerCaseAttributes": true,
+    "requireSpaceAfterCodeOperator": true,
+    "requireSpecificAttributes": [
+        {
+            "a": [
+                "href",
+                "target"
+            ]
+        }
+    ],
+    "validateAttributeQuoteMarks": "\"",
+    "validateAttributeSeparator": ", ",
+    "validateDivTags": true,
+    "validateSelfClosingTags": true
 }
