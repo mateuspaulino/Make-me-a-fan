@@ -5,7 +5,9 @@
     "disallowIdAttributeWithStaticValue": true,
     "disallowLegacyMixinCall": true,
     "disallowSpacesInsideAttributeBrackets": true,
-    "disallowSpecificAttributes": ["style"],
+    "disallowSpecificAttributes": [
+        "style"
+    ],
     "requireClassLiteralsBeforeAttributes": true,
     "requireIdLiteralsBeforeAttributes": true,
     "requireLineFeedAtFileEnd": true,
