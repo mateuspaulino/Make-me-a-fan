@@ -1,0 +1,59 @@
+.leia-mais-section {
+  box-sizing: border-box;
+  max-width: 500px;
+  margin: 85px auto;
+  border-top: 1px solid #d2e3e2;
+  padding-top: 15px;
+  @media(max-width: 767px) {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  h3 {
+    font-family: $fb;
+    font-size: 16px;
+    color: #414142;
+    margin-bottom: 15px;
+    // text-align: center;
+  }
+
+  .leia-mais-box {
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: center;
+
+    .leia-mais-item {
+      text-align: left;
+      max-width: 130px;
+      // margin: 10px 10px;
+
+      &:nth-of-type(2n) {
+        margin-right: 20px;
+        margin-left: 20px;
+      }
+      @media screen and (max-width: 640px) {
+        max-width: 100px;
+        // &:nth-child(2), &:nth-child(3){
+        //   display: none;
+        // }
+      }
+
+      a {
+        color: #414142;
+        text-decoration: none;
+        display: block;
+
+        img {
+          display: block;
+          margin-bottom: 10px;
+          width: 100%;
+        }
+
+        span {
+          font-family: $fr;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
