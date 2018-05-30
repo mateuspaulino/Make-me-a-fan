@@ -11,7 +11,6 @@ var resultados = new Array();
 
 getToJson(nomeArq, function(data) {
     iniciaAplicacao(data);
-    console.table(data);
 });
 
 
@@ -25,20 +24,24 @@ function comparaResultados(dados, resultados){
         var dif=0;
         var maxDif=0;
         for(var x=1;x<=qtdQuest;x++){
-            //pega a diferenÃ§a
+            //pega a diferença, se existir a questão
             if(d['Quest'+x]!=""){
+                //calcula a diferença
                 var calc = resultados[x-1]-d['Quest'+x];
+                //deixa o resultado positivo
                 calc = calc<0 ? calc*-1 : calc;
+                //soma a diferença que deu
                 dif += calc;
-                maxDif += 4;
-                
+                //soma a diferençå máxima com 4, que sao os extremos 1-5
+                maxDif += 4; 
             }
         }
         //verifica se partido respondeu pelo menos uma pergunta
         if(maxDif!=0){
-            //calculo do percentual
-            var discordancia = (dif/maxDif)*100;
-            var identificacao = (100-discordancia);
+            console.log(maxDif);
+            //calculo do percentual, digamos que ele diferefiu em 2 de 8 possiveis
+            var discordancia = (dif/maxDif)*100; //transforma em percentual
+            var identificacao = (100-discordancia); //trasforma em percentual. Se a discordancia for 0, o resultado é 100. 25 o resultato é 75
             //verifica se tem casa decimal e substitui por virgula
             var strIdf = String(identificacao);
             var percentual = identificacao;
@@ -47,7 +50,13 @@ function comparaResultados(dados, resultados){
                 identificacao = String(percentual).replace(".",",");
                 //str.substring(0,(str.length - 1)
             }
-            resultadoFinal.push({partido:d['Partido'],identificacao:identificacao,posicao:d['PosiÃ§Ã£o'],imagem:d['Imagem'],percentual:percentual});
+            resultadoFinal.push({
+                partido:d['Partido'],
+                identificacao:identificacao,
+                posicao:d['Posicao'],
+                imagem:d['Imagem'],
+                percentual:percentual}
+            );
         }
     })
     resultadoFinal = _.sortBy(resultadoFinal, function(obj){ return -parseInt(obj.identificacao, 10) });
@@ -70,38 +79,29 @@ function iniciaAplicacao(dados){
             cssEase: 'cubic-bezier(1.000, 0.210, 0.285, 0.695)',
         });
         $(".botao-pergunta").click(function(){
+            //guarda escolha
             $(this).toggleClass('escolhido');
             var indice = $(this).parent().parent().index();
             resultados[indice] = $(this).attr('data-numero');
 
             if(indice>=(qtdQuest-1)){
-                //acabou
+                //Finaliza teste
+                // console.log("Escolhas \/");
+                // console.table(resultados);
                 setTimeout(function(){
                     //chama resultado
                     var resultadoFinal = comparaResultados(dados, resultados);
-                    var tamLista = (resultadoFinal.length)/2;
-                    var seletor = $('.resultado ul.esq');
+                    var seletor = $('.resultado ul');
                     $('.resultado ul.esq,.resultado ul.dir').html("");
+                    // console.log("Obejto final \/");
+                    // console.table(resultadoFinal);
                     $.each(resultadoFinal,function(i,d){
-                        if(i>=tamLista){
-                            seletor = $('.resultado ul.dir');
-                        }
                         seletor.append('<li><div class="partido">'+d.partido+'</div><div class="posicao">'+d.posicao+'</div><div class="porcentagem">'+d.identificacao+'%</div><div class="barras"><div style="width:'+d.percentual+'%" class="barra"></div></div></li>');
                     })
-                    // $(".resultado").fadeIn();
-                    //mais se identifica
-                    var idf1 = '<div class="partido"><img src="'+dirImg+'partidos/'+resultadoFinal[0].imagem+'.jpg"><p>'+resultadoFinal[0].partido+': <span>'+resultadoFinal[0].percentual+'%</span></p></div>';
-                    var idf2 = '<div class="partido"><img src="'+dirImg+'partidos/'+resultadoFinal[1].imagem+'.jpg"><p>'+resultadoFinal[1].partido+': <span>'+resultadoFinal[1].percentual+'%</span></p></div>';
-                    $('.box-partidos.esq .bloco').html(idf1+idf2);
-                    //menos se identifica
-                    var dif1 = '<div class="partido"><img src="'+dirImg+'partidos/'+resultadoFinal[(resultadoFinal.length)-1].imagem+'.jpg"><p>'+resultadoFinal[(resultadoFinal.length)-1].partido+': <span>'+resultadoFinal[(resultadoFinal.length)-1].percentual+'%</span></p></div>';
-                    var dif2 = '<div class="partido"><img src="'+dirImg+'partidos/'+resultadoFinal[(resultadoFinal.length)-2].imagem+'.jpg"><p>'+resultadoFinal[(resultadoFinal.length)-2].partido+': <span>'+resultadoFinal[(resultadoFinal.length)-2].percentual+'%</span></p></div>';
-                    $('.box-partidos.dir .bloco').html(dif1+dif2);
                     $('.perguntas').animate({'opacity':0},700,function(){
                         $('.resultado').css({'opacity':0,'display':'block'}).animate({'opacity':1},700,function(){
                             $('.perguntas').css({'display':'none'});
                         })
-
                     })
 
                     //envia resultados
@@ -110,44 +110,6 @@ function iniciaAplicacao(dados){
                     $.each(resultados,function(i,d){
                         respostaUsuario.push({questao:(i+1),resposta:+d});
                     })
-
-                    formdata = {
-                        "responses": respostaUsuario
-                    }
-
-                    //qlt, prd
-                    /*
-                    $.ajax("https://1beigxaz56.execute-api.us-east-1.amazonaws.com/prd/infograficoPreferenciaPartidaria", {
-                        type: 'post',
-                        data: JSON.stringify(formdata),
-                        dataType: 'json',
-                        processData: false,
-                        contentType: 'application/json',    
-                        success: function(data) {
-                            console.table(data);
-                        }
-                    });
-                    */
-
-                    $('.link-facebook').on('click',function(){
-                        var p1 = Number(resultadoFinal[0].percentual);
-                        var p2 = Number(resultadoFinal[1].percentual);
-                        var partidosComp = {
-                            partido1:resultadoFinal[0].partido+" ("+p1.toFixed(0)+"%)",
-                            partido2:resultadoFinal[1].partido+" ("+p2.toFixed(0)+"%)",
-                        }
-                        compartilharDepoimento(partidosComp);
-                    });
-                    $('.link-twitter').on('click',function(){
-                        var p1 = Number(resultadoFinal[0].percentual);
-                        var p2 = Number(resultadoFinal[1].percentual);
-                        var partidosComp = {
-                            partido1:resultadoFinal[0].partido+" ("+p1.toFixed(0)+"%)",
-                            partido2:resultadoFinal[1].partido+" ("+p2.toFixed(0)+"%)",
-                        }
-                        compartilhaTwitter(partidosComp);
-                    });
-
 
                 }, 300);
             }
@@ -161,69 +123,10 @@ function iniciaAplicacao(dados){
             }, 500);
         })
 
-        $(".voltar").click(function(){
-            if(!$(this).hasClass('desativado')){
-                quiz.slick('slickPrev');
-                atualizaContador();
-                if(quiz.slick('slickCurrentSlide')==0){
-                    $(this).addClass('desativado');
-                }              
-            }
-        })
         var posTop = $(".perguntas").offset().top;
-        $(".novamente").click(function(){
-            quiz.slick('slickGoTo',0);
-            $('.resultado').animate({'opacity':0},700,function(){
-                $("html, body").animate({ scrollTop: posTop-30}, 1000);
-                // $("html, body").scrollTop(posTop);
-                $('.perguntas').css({'opacity':0,'display':'block'}).animate({'opacity':1},700,function(){
-                    $('.resultado').css({'display':'none'});
-                    quiz.slick('setPosition');
-                    $('.voltar').addClass('desativado');
-                })
-            })
-        })
-
-        $(".ler-artigo").click(function(){
-            $(this).toggleClass('aberto');
-            $(this).parent().parent().parent().next('.texto-especialista').slideToggle();
-        })
 
         function atualizaContador(){
             $('.perguntas .contador').text((quiz.slick("slickCurrentSlide") + 1) + " de " + quiz.slick("getSlick").slideCount);
-        }
-
-        // $('.link-facebook').on('click',function(){
-        //     // compartilharDepoimento(horasFacebook);
-        // });
-
-        var urlInfo = "http://infograficos.oglobo.globo.com/brasil/partido-do-voce-nao-me-representa.html";
-
-        function compartilharDepoimento(partidos){
-            // partido1
-            FB.init({appId: "275998675912771"});
-                 function postToFeed() {
-                   var obj = {
-                     method: 'feed',
-                     link: urlInfo,
-                     picture: "http://infograficos-estaticos.s3.amazonaws.com/identificacao-partidaria/assets/images/fb-partidos.jpg",
-                     name: "Os partidos com que mais me identifico: "+partidos.partido1+" e "+partidos.partido2+". FaÃ§a o teste vocÃª tambÃ©m",
-                     description: 'NÃºcleo de dados - O Globo',
-                     caption: ""
-                   };
-                   FB.ui(obj);
-                 }
-                 postToFeed();
-        }
-
-        function compartilhaTwitter(partidos){
-           var p1 = (partidos.partido1).replace('%','%25');
-           var p2 = (partidos.partido2).replace('%','%25');
-           var base = 'https://twitter.com/intent/tweet?text=';
-           var texto = "Os partidos com que mais me identifico: "+p1+" e "+p2+". FaÃ§a o teste vocÃª tambÃ©m";
-           var link = base +texto+'&url='+urlInfo+'&via=JornalOGlobo';
-           console.log(link);
-           window.open(link, '_blank');
         }
 
     });
