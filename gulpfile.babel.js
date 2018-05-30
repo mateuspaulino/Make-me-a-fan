@@ -162,8 +162,14 @@ gulp.task('copy',() => {
 // Clean BUILD
 gulp.task('clean', () => del(['./public/build/**'], { dot: true }) );
 
+// // Task's 
+// gulp.task('default', ['googledocssapi'], () => runSequence(['browserify', 'sass','images','watch','views','browserLive']));
+
+// /* O Sass só esta aqui para forçar a troca da variable de $s3URL, que será "append" dinamicamente. */
+// gulp.task('build', ['clean', 'sass' ,'googledocssapi'], () => runSequence(['views:build','copy']));
+
 // Task's 
-gulp.task('default', ['googledocssapi'], () => runSequence(['browserify', 'sass','images','watch','views','browserLive']));
+gulp.task('default', () => runSequence(['browserify', 'sass','images','watch','views','browserLive']));
 
 /* O Sass só esta aqui para forçar a troca da variable de $s3URL, que será "append" dinamicamente. */
-gulp.task('build', ['clean', 'sass' ,'googledocssapi'], () => runSequence(['views:build','copy']));
+gulp.task('build', ['clean', 'sass'], () => runSequence(['views:build','copy']));

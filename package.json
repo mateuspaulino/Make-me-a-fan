@@ -45,6 +45,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "googleapis": "^20.1.0"
   }
 }
