@@ -1,6 +1,7 @@
 # Make me a fan! - Editors Lab Final 2018
 
-![GitHub Logo](https://www.imageupload.co.uk/images/2018/05/31/raphaela.gif)
+<!-- ![Rafaela Silva](https://www.imageupload.co.uk/images/2018/05/31/raphaela.gif) -->
+![Rafaela Silva](https://www.imageupload.co.uk/images/2018/05/31/rafaela.jpg)
 <!-- ![alt text](http://infograficos-estaticos.s3.amazonaws.com/assets-hackathon-globo/banner.jpg) -->
 
 ## Team - Brazil
