@@ -11,6 +11,7 @@ var resultados = new Array();
 
 getToJson(nomeArq, function(data) {
     iniciaAplicacao(data);
+    console.log(JSON.stringify(data));
 });
 
 
@@ -87,7 +88,7 @@ function iniciaAplicacao(dados){
             if(indice>=(qtdQuest-1)){
                 //Finaliza teste
                 // console.log("Escolhas \/");
-                // console.table(resultados);
+                console.table(resultados);
                 setTimeout(function(){
                     //chama resultado
                     var resultadoFinal = comparaResultados(dados, resultados);
